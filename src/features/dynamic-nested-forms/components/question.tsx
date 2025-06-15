@@ -221,7 +221,7 @@ export function SurveyQuestionForm({
 
   return (
     <Accordion
-      title={questionText || `Question ${index + 1}`}
+      title={questionText || `Empty question`}
       expanded={expended}
       onToggle={handleToggle}
       childrenActions={
