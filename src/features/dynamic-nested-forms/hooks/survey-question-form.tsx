@@ -67,12 +67,14 @@ export function useSurveyQuestionForm({
     answersField.append(generateAnswerFields(answersField.fields.length));
   };
 
-  const handleReorderAnswer = (answers: SurveyAnswer[]) => {
-    const updatedAnswers = answers.map((item, index) => ({
-      ...item,
-      order: index,
-    }));
-    setValue('answerOptions', updatedAnswers);
+  const handleReorderAnswer = ({
+    oldIndex,
+    newIndex,
+  }: {
+    oldIndex: number;
+    newIndex: number;
+  }) => {
+    answersField.move(oldIndex, newIndex);
   };
 
   const handleDeleteAnswer = (index: number) => {

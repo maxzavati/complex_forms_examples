@@ -118,7 +118,7 @@ export function SurveyQuestionForm({
                 sx={{
                   width: '100%',
                   display: 'flex',
-                  alignItems: 'center',
+                  alignItems: 'flex-start',
                   gap: 1,
                 }}
               >

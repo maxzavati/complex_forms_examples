@@ -10,7 +10,6 @@ import {
   KeyboardSensor,
 } from '@dnd-kit/core';
 import {
-  arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
@@ -24,7 +23,13 @@ import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 
 interface SortableDndProps<T extends { id: string }> {
   data: T[];
-  onReorder: (items: T[]) => void;
+  onReorder: ({
+    oldIndex,
+    newIndex,
+  }: {
+    oldIndex: number;
+    newIndex: number;
+  }) => void;
   renderItem: (item: T, index: number) => React.ReactNode;
 }
 
@@ -51,7 +56,8 @@ export function SortableDnd<T extends { id: string }>({
 
     const oldIndex = data.findIndex((item) => item.id === active.id);
     const newIndex = data.findIndex((item) => item.id === over.id);
-    onReorder(arrayMove(data, oldIndex, newIndex));
+
+    onReorder({ oldIndex, newIndex });
   };
 
   return (

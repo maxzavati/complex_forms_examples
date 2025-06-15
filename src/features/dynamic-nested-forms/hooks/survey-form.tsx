@@ -2,15 +2,11 @@ import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useFieldArray, useForm } from 'react-hook-form';
 
-import {
-  SurveyQuestion,
-  SurveyFormFields,
-  SurveyQuestionFormFields,
-} from '../types';
 import { addSurvey } from '@/apis/endpoints';
 import { surveyFormSchema } from '../schemas';
 import { generateQuestionFields } from '../utils';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { SurveyFormFields, SurveyQuestionFormFields } from '../types';
 
 export function useSurveyForm() {
   const [editMode, setEditMode] = useState(false);
@@ -43,12 +39,14 @@ export function useSurveyForm() {
     questionsField.append(generateQuestionFields(questionsField.fields.length));
   };
 
-  const handleReorderQuestion = (questions: SurveyQuestion[]) => {
-    const updatedQuestions = questions.map((item, index) => ({
-      ...item,
-      order: index,
-    }));
-    setValue('questions', updatedQuestions);
+  const handleReorderQuestion = ({
+    oldIndex,
+    newIndex,
+  }: {
+    oldIndex: number;
+    newIndex: number;
+  }) => {
+    questionsField.move(oldIndex, newIndex);
   };
 
   const handleSaveQuestion = ({
